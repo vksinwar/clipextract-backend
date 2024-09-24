@@ -51,7 +51,11 @@ def generate_file(filename: str) -> Generator[bytes, None, None]:
 
 def cleanup(temp_dir: str):
     shutil.rmtree(temp_dir, ignore_errors=True)
-
+    
+@app.get("/")
+async def root():
+    return {"message": "Application is running"}
+    
 @app.post("/download")
 async def download_video(request: DownloadRequest, background_tasks: BackgroundTasks):
     temp_dir = tempfile.mkdtemp()
